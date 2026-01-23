@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="موقع حركة الصادقون السياسية - Al-Sadiqoon Political Movement">
+    <meta name="keywords" content="الصادقون، العراق، سياسة، حركة سياسية">
+    <title>الصادقون - Al-Sadiqoon</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="/images/logo-sadcon.png" alt="الصادقون" style="height: 50px;">
+            </a>
+
+            <nav class="nav" id="nav">
+                <a href="/" class="nav-link active">الصادقون</a>
+                <a href="/sections/political.html" class="nav-link">التنظيم السياسي</a>
+                <a href="/sections/executive.html" class="nav-link">التنفيذي</a>
+                <a href="/sections/state-building.html" class="nav-link">بناء الدولة</a>
+                <a href="/sections/relations.html" class="nav-link">العلاقات</a>
+                <a href="/sections/news.html" class="nav-link">أخبار الصادقون</a>
+                <a href="/sections/activities.html" class="nav-link">الأنشطة</a>
+                <a href="/sections/contact.html" class="nav-link">الاتصال والدعم</a>
+            </nav>
+
+            <button class="theme-toggle" id="themeToggle"
+                style="background:none; border:none; color:var(--text-primary); font-size:1.2rem; cursor:pointer; margin-left:15px;">
+                <i class="fas fa-sun"></i>
+            </button>
+            <button class="mobile-menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">حركة الصادقون</h1>
+            <p class="hero-subtitle">نحو عراق قوي ومستقل وموحد</p>
+            <p class="hero-description">
+                حركة سياسية وطنية تسعى لبناء دولة قوية قادرة على حماية سيادتها وخدمة شعبها
+                وتحقيق التنمية الشاملة في جميع المجالات
+            </p>
+            <div class="hero-buttons">
+                <a href="/sections/news.html" class="btn btn-primary">
+                    <i class="fas fa-newspaper"></i>
+                    آخر الأخبار
+                </a>
+                <a href="/sections/contact.html" class="btn btn-secondary">
+                    <i class="fas fa-phone"></i>
+                    تواصل معنا
+                </a>
+                <a href="https://whatsapp.com/channel/0029Vaxel3t8aKvCxTkxQs1z" target="_blank"
+                    class="btn btn-secondary">
+                    <i class="fab fa-whatsapp"></i>
+                    قناة واتساب
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest News Section -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">آخر الأخبار</h2>
+            <p class="section-subtitle">تابع أحدث الأخبار والتطورات</p>
+        </div>
+
+        <div class="cards-grid" id="newsGrid">
+            <!-- News cards will be loaded dynamically -->
+            <div class="loading-container" style="text-align: center; padding: 40px;">
+                <div class="loading"></div>
+                <p style="margin-top: 20px; color: var(--text-muted);">جاري تحميل الأخبار...</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="/sections/news.html" class="btn btn-primary">
+                عرض جميع الأخبار
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section"
+        style="background: rgba(26, 95, 63, 0.05); margin: 60px 0; padding: 60px 20px; border-radius: 24px;">
+        <div class="section-header">
+            <h2 class="section-title">من نحن</h2>
+            <p class="section-subtitle">حركة الصادقون - رؤية وطنية شاملة</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div style="font-size: 3rem; text-align: center; margin-bottom: 20px;">🎯</div>
+                <h3 class="card-title">رؤيتنا</h3>
+                <p class="card-content">
+                    بناء عراق قوي ومستقل وموحد، يتمتع بسيادة كاملة ويوفر الحياة الكريمة لجميع أبنائه
+                </p>
+            </div>
+
+            <div class="card">
+                <div style="font-size: 3rem; text-align: center; margin-bottom: 20px;">📋</div>
+                <h3 class="card-title">رسالتنا</h3>
+                <p class="card-content">
+                    العمل الجاد لخدمة المواطن العراقي وتحقيق التنمية الشاملة في جميع المجالات
+                </p>
+            </div>
+
+            <div class="card">
+                <div style="font-size: 3rem; text-align: center; margin-bottom: 20px;">⚖️</div>
+                <h3 class="card-title">قيمنا</h3>
+                <p class="card-content">
+                    الصدق، الأمانة، الشفافية، العدالة، والالتزام بخدمة الشعب العراقي
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities Section -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">الأنشطة والفعاليات</h2>
+            <p class="section-subtitle">أحدث أنشطتنا وفعالياتنا</p>
+        </div>
+
+        <div class="cards-grid" id="activitiesGrid">
+            <div class="loading-container" style="text-align: center; padding: 40px;">
+                <div class="loading"></div>
+                <p style="margin-top: 20px; color: var(--text-muted);">جاري تحميل الأنشطة...</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="/sections/activities.html" class="btn btn-primary">
+                عرض جميع الأنشطة
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- WhatsApp Feed Section -->
+    <section class="section whatsapp-section" style="border-radius: 20px; margin: 40px auto; max-width: 1200px;">
+        <div class="section-header">
+            <h2 class="section-title"
+                style="-webkit-text-fill-color: initial; background: none; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+                <i class="fab fa-whatsapp" style="margin-left: 10px;"></i> قناة الصادقون
+            </h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.8);">تابع أحدث المنشورات مباشرة من قناتنا على
+                واتساب</p>
+        </div>
+
+        <div class="chat-container" id="whatsappFeed">
+            <!-- Loading state -->
+            <div style="text-align: center; color: white;">
+                <i class="fas fa-spinner fa-spin fa-2x"></i>
+                <p>جاري الاتصال بالقناة...</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="https://whatsapp.com/channel/0029Vaxel3t8aKvCxTkxQs1z" target="_blank" class="whatsapp-btn">
+                <i class="fab fa-whatsapp"></i> اشترك في القناة الآن
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>حركة الصادقون</h3>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    حركة سياسية وطنية تسعى لبناء عراق قوي ومستقل،
+                    نعمل من أجل خدمة المواطن وتحقيق التنمية الشاملة.
+                </p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/alsadiqon.iq" target="_blank" class="social-link">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://twitter.com/alsadiqon" target="_blank" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://whatsapp.com/channel/0029Vaxel3t8aKvCxTkxQs1z" target="_blank" class="social-link">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://t.me/alsadiqon" target="_blank" class="social-link">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>روابط سريعة</h3>
+                <ul class="footer-links">
+                    <li><a href="/">الصفحة الرئيسية</a></li>
+                    <li><a href="/sections/political.html">التنظيم السياسي</a></li>
+                    <li><a href="/sections/executive.html">التنفيذي</a></li>
+                    <li><a href="/sections/state-building.html">بناء الدولة</a></li>
+                    <li><a href="/sections/relations.html">العلاقات</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>الأقسام</h3>
+                <ul class="footer-links">
+                    <li><a href="/sections/news.html">أخبار الصادقون</a></li>
+                    <li><a href="/sections/activities.html">الأنشطة</a></li>
+                    <li><a href="/sections/contact.html">الاتصال والدعم</a></li>
+                    <li><a href="/admin">لوحة التحكم</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>تواصل معنا</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-envelope"></i> info@alsadiqon.iq</li>
+                    <li><i class="fas fa-phone"></i> +964 XXX XXX XXXX</li>
+                    <li><i class="fas fa-map-marker-alt"></i> بغداد، العراق</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 حركة الصادقون. جميع الحقوق محفوظة.</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">
+                تم التطوير بواسطة فريق الصادقون التقني
+            </p>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+</body>
+
+</html>

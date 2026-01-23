@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أخبار الصادقون - Al-Sadiqoon News</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="/images/logo-sadcon.png" alt="الصادقون" style="height: 50px;">
+            </a>
+
+            <nav class="nav" id="nav">
+                <a href="/" class="nav-link">الصادقون</a>
+                <a href="/sections/political.html" class="nav-link">التنظيم السياسي</a>
+                <a href="/sections/executive.html" class="nav-link">التنفيذي</a>
+                <a href="/sections/state-building.html" class="nav-link">بناء الدولة</a>
+                <a href="/sections/relations.html" class="nav-link">العلاقات</a>
+                <a href="/sections/news.html" class="nav-link active">أخبار الصادقون</a>
+                <a href="/sections/activities.html" class="nav-link">الأنشطة</a>
+                <a href="/sections/contact.html" class="nav-link">الاتصال والدعم</a>
+            </nav>
+
+            <button class="theme-toggle" id="themeToggle"
+                style="background:none; border:none; color:var(--text-primary); font-size:1.2rem; cursor:pointer; margin-left:15px;">
+                <i class="fas fa-sun"></i>
+            </button>
+            <button class="mobile-menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <div style="padding-top: 100px; min-height: 100vh;">
+        <section class="section">
+            <div class="section-header">
+                <h1 class="section-title">أخبار الصادقون</h1>
+                <p class="section-subtitle">تابع آخر الأخبار والتطورات</p>
+            </div>
+
+            <!-- Filter Buttons -->
+            <div style="text-align: center; margin-bottom: 40px;">
+                <button class="btn btn-secondary" onclick="filterNews('all')" id="filter-all">الكل</button>
+                <button class="btn btn-secondary" onclick="filterNews('اخبار الصادقون')" id="filter-news">أخبار
+                    الصادقون</button>
+                <button class="btn btn-secondary" onclick="filterNews('بيانات')" id="filter-statements">بيانات</button>
+                <button class="btn btn-secondary" onclick="filterNews('تصاريح')"
+                    id="filter-declarations">تصاريح</button>
+                <button class="btn btn-secondary" onclick="filterNews('نشاطات')" id="filter-activities">نشاطات</button>
+            </div>
+
+            <div class="cards-grid" id="allNewsGrid">
+                <div class="loading-container" style="text-align: center; padding: 40px; grid-column: 1/-1;">
+                    <div class="loading"></div>
+                    <p style="margin-top: 20px; color: var(--text-muted);">جاري تحميل الأخبار...</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>حركة الصادقون</h3>
+                <p style="color: var(--text-secondary);">حركة سياسية وطنية تسعى لبناء عراق قوي ومستقل</p>
+            </div>
+            <div class="footer-section">
+                <h3>روابط سريعة</h3>
+                <ul class="footer-links">
+                    <li><a href="/">الصفحة الرئيسية</a></li>
+                    <li><a href="/sections/contact.html">تواصل معنا</a></li>
+                    <li><a href="/admin">لوحة التحكم</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 حركة الصادقون. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script>
+        let allNews = [];
+        let currentFilter = 'all';
+
+        async function loadAllNews() {
+            const newsGrid = document.getElementById('allNewsGrid');
+            try {
+                const response = await fetch(`${window.AlSadiqoon.API_URL}/news?limit=100`);
+                allNews = await response.json();
+                displayNews(allNews);
+            } catch (error) {
+                console.error('Error loading news:', error);
+                newsGrid.innerHTML = '<div style="text-align: center; padding: 40px; grid-column: 1/-1;"><p style="color: var(--text-muted);">حدث خطأ في تحميل الأخبار</p></div>';
+            }
+        }
+
+        function displayNews(news) {
+            const newsGrid = document.getElementById('allNewsGrid');
+            if (news.length === 0) {
+                newsGrid.innerHTML = '<div style="text-align: center; padding: 40px; grid-column: 1/-1;"><p style="color: var(--text-muted); font-size: 1.2rem;">لا توجد أخبار</p></div>';
+                return;
+            }
+
+            newsGrid.innerHTML = news.map(item => `
+                <div class="card">
+                    ${item.image ? `<img src="${item.image}" alt="${item.title}" class="card-image">` : ''}
+                    <span class="card-category">${item.category || 'عام'}</span>
+                    <h3 class="card-title">${item.title}</h3>
+                    <p class="card-content">${window.AlSadiqoon.truncateText(item.content, 150)}</p>
+                    <div class="card-meta">
+                        <span><i class="fas fa-calendar"></i> ${window.AlSadiqoon.formatDate(item.published_date)}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterNews(category) {
+            currentFilter = category;
+
+            // Update button styles
+            document.querySelectorAll('[id^="filter-"]').forEach(btn => {
+                btn.style.background = 'transparent';
+                btn.style.color = 'var(--primary-gold)';
+            });
+            document.getElementById(`filter-${category === 'all' ? 'all' : category.replace(/\s+/g, '-')}`).style.background = 'var(--gradient-primary)';
+            document.getElementById(`filter-${category === 'all' ? 'all' : category.replace(/\s+/g, '-')}`).style.color = 'white';
+
+            if (category === 'all') {
+                displayNews(allNews);
+            } else {
+                const filtered = allNews.filter(item => item.category === category);
+                displayNews(filtered);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadAllNews);
+    </script>
+</body>
+
+</html>

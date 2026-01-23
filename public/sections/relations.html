@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>العلاقات - Relations</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="header" id="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="/images/logo-sadcon.png" alt="الصادقون" style="height: 50px;">
+            </a>
+            <nav class="nav" id="nav">
+                <a href="/" class="nav-link">الصادقون</a>
+                <a href="/sections/political.html" class="nav-link">التنظيم السياسي</a>
+                <a href="/sections/executive.html" class="nav-link">التنفيذي</a>
+                <a href="/sections/state-building.html" class="nav-link">بناء الدولة</a>
+                <a href="/sections/relations.html" class="nav-link active">العلاقات</a>
+                <a href="/sections/news.html" class="nav-link">أخبار الصادقون</a>
+                <a href="/sections/activities.html" class="nav-link">الأنشطة</a>
+                <a href="/sections/contact.html" class="nav-link">الاتصال والدعم</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle"
+                style="background:none; border:none; color:var(--text-primary); font-size:1.2rem; cursor:pointer; margin-left:15px;">
+                <i class="fas fa-sun"></i>
+            </button>
+            <button class="mobile-menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </header>
+
+    <div style="padding-top: 100px; min-height: 100vh;">
+        <section class="section">
+            <div class="section-header">
+                <h1 class="section-title">العلاقات</h1>
+                <p class="section-subtitle">علاقاتنا المحلية والدولية</p>
+            </div>
+            <div
+                style="max-width: 900px; margin: 0 auto; padding: 40px; background: rgba(26, 95, 63, 0.08); border-radius: var(--radius-lg); border: 1px solid rgba(80, 200, 120, 0.15);">
+                <div id="sectionContent" style="color: var(--text-secondary); line-height: 1.8; font-size: 1.1rem;">
+                    <p>جاري تحميل المحتوى...</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2026 حركة الصادقون. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+    <script src="/js/main.js"></script>
+    <script>
+        fetch(`${window.AlSadiqoon.API_URL}/sections/relations`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.content) document.getElementById('sectionContent').innerHTML = data.content;
+            });
+    </script>
+</body>
+
+</html>
