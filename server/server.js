@@ -179,7 +179,7 @@ app.get('/api/health', (req, res) => {
 app.listen(PORT, () => {
     console.log(`🚀 Al-Sadiqoon server running on http://localhost:${PORT}`);
     console.log(`📊 Database: alsadiqoon.db`);
-    console.log(`🔐 Default admin credentials: username=admin, password=AlSadiqoon@Secure2025`);
+    console.log(`🔐 Default admin credentials: username=alaa, password=alzughabi1`);
 });
 
 module.exports = app;

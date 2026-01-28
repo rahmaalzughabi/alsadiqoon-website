@@ -80,11 +80,11 @@ db.serialize(() => {
     )
   `);
 
-  // Insert default admin user (username: admin, password: AlSadiqoon@Secure2025)
-  const defaultPassword = bcrypt.hashSync('AlSadiqoon@Secure2025', 10);
+  // Insert default admin user (username: alaa, password: alzughabi1)
+  const defaultPassword = bcrypt.hashSync('alzughabi1', 10);
   db.run(`
     INSERT OR IGNORE INTO users (username, password_hash, role)
-    VALUES ('admin', ?, 'admin')
+    VALUES ('alaa', ?, 'admin')
   `, [defaultPassword]);
 
   // Insert default sections
