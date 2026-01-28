@@ -51,8 +51,7 @@ async function deleteNews(id) {
 
     try {
         await fetch(`${API_URL}/news/${id}`, {
-            method: 'DELETE',
-            headers: { 'Authorization': `Bearer ${token}` }
+            method: 'DELETE'
         });
         loadNews();
         updateStats();
@@ -98,8 +97,7 @@ document.getElementById('newsForm').addEventListener('submit', async (e) => {
         await fetch(url, {
             method: method,
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
         });
@@ -123,7 +121,6 @@ async function syncWhatsApp() {
         const response = await fetch(`${API_URL}/news/sync/whatsapp`, {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
             }
         });

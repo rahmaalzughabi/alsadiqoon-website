@@ -1,8 +1,6 @@
 async function loadAuditLogs() {
     try {
-        const response = await fetch(`${API_URL}/audit?limit=100`, {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
+        const response = await fetch(`${API_URL}/audit?limit=100`);
         const logs = await response.json();
 
         const tbody = document.getElementById('auditTableBody');

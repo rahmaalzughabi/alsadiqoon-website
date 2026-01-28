@@ -31,8 +31,7 @@ async function deleteActivity(id) {
 
     try {
         await fetch(`${API_URL}/activities/${id}`, {
-            method: 'DELETE',
-            headers: { 'Authorization': `Bearer ${token}` }
+            method: 'DELETE'
         });
         loadActivities();
         updateStats();
