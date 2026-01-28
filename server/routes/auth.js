@@ -34,9 +34,20 @@ router.post('/login', (req, res) => {
                 { expiresIn: '24h' }
             );
 
+            // Log login action
+            db.run(`INSERT INTO audit_logs (action, details, performed_by, ip_address) VALUES (?, ?, ?, ?)`,
+                ['LOGIN', 'Successful login', user.username, req.ip || req.connection.remoteAddress]);
+
+            // Set HttpOnly cookie
+            res.cookie('token', token, {
+                httpOnly: true,
+                secure: false, // Set to true if using HTTPS
+                sameSite: 'strict',
+                maxAge: 24 * 60 * 60 * 1000 // 24 hours
+            });
+
             res.json({
                 success: true,
-                token,
                 user: {
                     id: user.id,
                     username: user.username,
@@ -50,7 +61,7 @@ router.post('/login', (req, res) => {
 // Verify token endpoint
 router.get('/verify', (req, res) => {
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
+    const token = (authHeader && authHeader.split(' ')[1]) || req.cookies.token;
 
     if (!token) {
         return res.status(401).json({ valid: false });
@@ -62,6 +73,12 @@ router.get('/verify', (req, res) => {
         }
         res.json({ valid: true, user });
     });
+});
+
+// Logout endpoint
+router.post('/logout', (req, res) => {
+    res.clearCookie('token');
+    res.json({ success: true });
 });
 
 module.exports = router;

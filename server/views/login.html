@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - لوحة التحكم</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: #000;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            background: rgba(10, 22, 18, 0.95);
+            border-radius: 12px;
+            border: 1px solid rgba(80, 200, 120, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(80, 200, 120, 0.2);
+            border-radius: 4px;
+            color: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+
+        .alert-error {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid #ff0000;
+            color: #ffcccc;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div style="text-align: center; margin-bottom: 30px;">
+            <img src="/images/logo-sadcon.png" style="height: 60px;">
+            <h2 style="margin-top: 15px; color: #d4af37;">لوحة التحكم</h2>
+        </div>
+
+        <div id="errorMsg" class="alert-error"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label class="form-label">اسم المستخدم</label>
+                <input type="text" name="username" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">كلمة المرور</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%">دخول</button>
+        </form>
+    </div>
+
+    <script src="/js/admin/config.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            const errorDiv = document.getElementById('errorMsg');
+
+            errorDiv.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    window.location.href = '/admin'; // Server will allow access now
+                } else {
+                    errorDiv.textContent = 'بيانات الدخول غير صحيحة';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                errorDiv.textContent = 'حدث خطأ في الاتصال';
+                errorDiv.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -159,33 +159,17 @@
                     style="background:none; border:none; color:var(--text-primary); font-size:1.2rem; cursor:pointer;">
                     <i class="fas fa-sun"></i>
                 </button>
-                <div id="userNav" style="display: none;">
+                <div id="userNav">
                     <button onclick="logout()" class="btn btn-secondary btn-sm">تسجيل خروج</button>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- Login View -->
-    <div id="loginView" class="container">
-        <div class="login-container">
-            <h2 class="text-center mb-2">تسجيل الدخول</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label class="form-label">اسم المستخدم</label>
-                    <input type="text" name="username" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">كلمة المرور</label>
-                    <input type="password" name="password" class="form-control" required>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%">دخول</button>
-            </form>
-        </div>
-    </div>
+    <!-- Dashboard View (Always Visible as Auth is handled by Server) -->
 
     <!-- Admin Dashboard View -->
-    <div id="dashboardView" class="admin-layout" style="display: none;">
+    <div id="dashboardView" class="admin-layout">
         <aside class="admin-sidebar">
             <nav>
                 <a href="#" onclick="showSection('dashboard')" class="sidebar-link active" id="nav-dashboard">
@@ -202,6 +186,9 @@
                 </a>
                 <a href="#" onclick="showSection('whatsapp')" class="sidebar-link" id="nav-whatsapp">
                     <i class="fab fa-whatsapp"></i> منشورات واتساب
+                </a>
+                <a href="#" onclick="showSection('audit')" class="sidebar-link" id="nav-audit">
+                    <i class="fas fa-history"></i> سجلات النشاط
                 </a>
             </nav>
         </aside>
@@ -311,6 +298,30 @@
             </table>
         </div>
     </div>
+
+    <!-- Audit Logs -->
+    <div id="section-audit" style="display: none;">
+        <div class="admin-header">
+            <h2>سجلات النشاط</h2>
+            <button onclick="loadAuditLogs()" class="btn btn-secondary">
+                <i class="fas fa-sync"></i> تحديث
+            </button>
+        </div>
+        <div class="card">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>الإجراء</th>
+                        <th>التفاصيل</th>
+                        <th>المستخدم</th>
+                        <th>IP</th>
+                        <th>التوقيت</th>
+                    </tr>
+                </thead>
+                <tbody id="auditTableBody"></tbody>
+            </table>
+        </div>
+    </div>
     </main>
     </div>
 
@@ -351,7 +362,13 @@
         </div>
     </div>
 
-    <script src="/js/admin.js"></script>
+    <script src="/js/admin/config.js"></script>
+    <script src="/js/admin/auth.js"></script>
+    <script src="/js/admin/news.js"></script>
+    <script src="/js/admin/activities.js"></script>
+    <script src="/js/admin/whatsapp.js"></script>
+    <script src="/js/admin/audit.js"></script>
+    <script src="/js/admin/dashboard.js"></script>
 </body>
 
 </html>

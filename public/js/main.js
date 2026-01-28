@@ -87,20 +87,36 @@ async function loadNews(limit = 6) {
     const newsGrid = document.getElementById('newsGrid');
     if (!newsGrid) return;
 
-    try {
-        const response = await fetch(`${API_URL}/news?limit=${limit}`);
-        const news = await response.json();
-
-        if (news.length === 0) {
+    // Check for server-injected data first
+    let news = [];
+    if (window.INITIAL_DATA && window.INITIAL_DATA.news) {
+        news = window.INITIAL_DATA.news;
+        window.INITIAL_DATA.news = null; // Consume
+    } else {
+        try {
+            const response = await fetch(`${API_URL}/news?limit=${limit}`);
+            news = await response.json();
+        } catch (error) {
+            console.error('Error loading news:', error);
             newsGrid.innerHTML = `
                 <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
-                    <p style="color: var(--text-muted); font-size: 1.2rem;">لا توجد أخبار حالياً</p>
+                    <p style="color: var(--text-muted);">حدث خطأ في تحميل الأخبار</p>
                 </div>
             `;
             return;
         }
+    }
 
-        newsGrid.innerHTML = news.map(item => `
+    if (news.length === 0) {
+        newsGrid.innerHTML = `
+            <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
+                <p style="color: var(--text-muted); font-size: 1.2rem;">لا توجد أخبار حالياً</p>
+            </div>
+        `;
+        return;
+    }
+
+    newsGrid.innerHTML = news.map(item => `
             <div class="card">
                 ${item.image ? `<img src="${item.image}" alt="${item.title}" class="card-image">` : ''}
                 <span class="card-category">${item.category || 'عام'}</span>
@@ -114,14 +130,7 @@ async function loadNews(limit = 6) {
                 </div>
             </div>
         `).join('');
-    } catch (error) {
-        console.error('Error loading news:', error);
-        newsGrid.innerHTML = `
-            <div style="text-align: center; padding: 40px; grid-column: 1/-1;">
-                <p style="color: var(--text-muted);">حدث خطأ في تحميل الأخبار</p>
-            </div>
-        `;
-    }
+
 }
 
 // ===================================

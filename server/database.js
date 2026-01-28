@@ -57,6 +57,18 @@ db.serialize(() => {
     )
   `);
 
+  // Audit Logs table
+  db.run(`
+    CREATE TABLE IF NOT EXISTS audit_logs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      action TEXT NOT NULL,
+      details TEXT,
+      performed_by TEXT,
+      ip_address TEXT,
+      timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
   // Users table
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
@@ -68,8 +80,8 @@ db.serialize(() => {
     )
   `);
 
-  // Insert default admin user (username: admin, password: admin123)
-  const defaultPassword = bcrypt.hashSync('admin123', 10);
+  // Insert default admin user (username: admin, password: AlSadiqoon@Secure2025)
+  const defaultPassword = bcrypt.hashSync('AlSadiqoon@Secure2025', 10);
   db.run(`
     INSERT OR IGNORE INTO users (username, password_hash, role)
     VALUES ('admin', ?, 'admin')
