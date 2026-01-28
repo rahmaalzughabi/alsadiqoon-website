@@ -9,6 +9,7 @@ function showSection(sectionId) {
 
     if (sectionId === 'news') loadNews();
     if (sectionId === 'activities') loadActivities();
+    if (sectionId === 'sections') loadSections();
     if (sectionId === 'whatsapp') loadWhatsAppPosts();
     if (sectionId === 'audit') loadAuditLogs();
 }
@@ -29,5 +30,13 @@ async function updateStats() {
     }
 }
 
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
 // Initial check
 checkAuth();
+updateStats();

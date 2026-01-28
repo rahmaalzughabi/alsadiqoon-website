@@ -67,6 +67,8 @@
 
     <script src="/js/main.js"></script>
     <script>
+        let allActivities = [];
+
         document.addEventListener('DOMContentLoaded', () => {
             window.AlSadiqoon.loadActivities(50).then(() => {
                 const grid = document.getElementById('allActivitiesGrid');
@@ -74,21 +76,77 @@
                     fetch(`${window.AlSadiqoon.API_URL}/activities?limit=50`)
                         .then(res => res.json())
                         .then(activities => {
-                            grid.innerHTML = activities.map(item => `
-                                <div class="card">
-                                    ${item.image ? `<img src="${item.image}" alt="${item.title}" class="card-image">` : ''}
-                                    <h3 class="card-title">${item.title}</h3>
-                                    <p class="card-content">${item.description || ''}</p>
-                                    <div class="card-meta">
-                                        <span><i class="fas fa-calendar"></i> ${window.AlSadiqoon.formatDate(item.date)}</span>
-                                        ${item.location ? `<span><i class="fas fa-map-marker-alt"></i> ${item.location}</span>` : ''}
+                            allActivities = activities;
+                            grid.innerHTML = activities.map(item => {
+                                const shortDesc = item.description ? window.AlSadiqoon.truncateText(item.description, 150) : '';
+                                const hasMore = item.description && item.description.length > 150;
+
+                                return `
+                                    <div class="card" data-activity-id="${item.id}">
+                                        ${item.image ? `<img src="${item.image}" alt="${item.title}" class="card-image">` : ''}
+                                        <h3 class="card-title">${item.title}</h3>
+                                        <p class="card-content">${shortDesc}</p>
+                                        ${hasMore ? `
+                                            <button class="btn btn-secondary btn-sm" onclick="showFullActivity(${item.id})" style="margin-top: 10px;">
+                                                <i class="fas fa-book-open"></i> قراءة المزيد
+                                            </button>
+                                        ` : ''}
+                                        <div class="card-meta">
+                                            <span><i class="fas fa-calendar"></i> ${window.AlSadiqoon.formatDate(item.date)}</span>
+                                            ${item.location ? `<span><i class="fas fa-map-marker-alt"></i> ${item.location}</span>` : ''}
+                                        </div>
                                     </div>
-                                </div>
-                            `).join('');
+                                `;
+                            }).join('');
                         });
                 }
             });
         });
+
+        function showFullActivity(activityId) {
+            const activity = allActivities.find(item => item.id === activityId);
+            if (!activity) return;
+
+            // Create modal if it doesn't exist
+            let modal = document.getElementById('activityDetailModal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'activityDetailModal';
+                modal.style.cssText = 'display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; overflow-y: auto; padding: 20px;';
+                modal.innerHTML = `
+                    <div style="max-width: 800px; margin: 40px auto; background: var(--bg-primary); border-radius: 20px; padding: 30px; position: relative; border: 1px solid rgba(80, 200, 120, 0.2);">
+                        <button onclick="closeActivityModal()" style="position: absolute; top: 20px; left: 20px; background: rgba(212, 175, 55, 0.2); border: none; color: var(--primary-gold); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div id="activityDetailContent"></div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+            }
+
+            // Fill modal with activity content
+            const contentDiv = document.getElementById('activityDetailContent');
+            contentDiv.innerHTML = `
+                ${activity.image ? `<img src="${activity.image}" alt="${activity.title}" style="width: 100%; border-radius: 15px; margin-bottom: 20px;">` : ''}
+                <h2 style="color: var(--text-primary); margin: 15px 0 10px; font-size: 2rem;">${activity.title}</h2>
+                <div style="color: var(--text-muted); margin-bottom: 20px;">
+                    <i class="fas fa-calendar"></i> ${window.AlSadiqoon.formatDate(activity.date)}
+                    ${activity.location ? `<span style="margin-right: 20px;"><i class="fas fa-map-marker-alt"></i> ${activity.location}</span>` : ''}
+                </div>
+                <div style="color: var(--text-secondary); line-height: 1.8; font-size: 1.1rem; white-space: pre-wrap;">${activity.description || ''}</div>
+            `;
+
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeActivityModal() {
+            const modal = document.getElementById('activityDetailModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        }
     </script>
 </body>
 
