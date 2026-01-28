@@ -303,24 +303,104 @@
     <!-- Audit Logs -->
     <div id="section-audit" style="display: none;">
         <div class="admin-header">
-            <h2>سجلات النشاط</h2>
-            <button onclick="loadAuditLogs()" class="btn btn-secondary">
-                <i class="fas fa-sync"></i> تحديث
-            </button>
+            <h2>سجلات النشاط (Audit Logs)</h2>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="exportAuditLogsCSV()" class="btn btn-secondary">
+                    <i class="fas fa-download"></i> تصدير CSV
+                </button>
+                <button onclick="toggleAutoRefresh()" class="btn btn-secondary" id="autoRefreshBtn">
+                    <i class="fas fa-play"></i> تفعيل التحديث التلقائي
+                </button>
+                <button onclick="loadAuditLogs()" class="btn btn-primary">
+                    <i class="fas fa-sync"></i> تحديث
+                </button>
+            </div>
         </div>
+
+        <!-- Statistics Cards -->
+        <div class="cards-grid" style="margin-bottom: 30px;">
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-list" style="font-size: 2rem; color: var(--primary-accent); margin-bottom: 10px;"></i>
+                <h3 style="font-size: 2.5rem; margin: 10px 0;" id="totalLogsCount">0</h3>
+                <p style="color: var(--text-muted);">إجمالي السجلات</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-users" style="font-size: 2rem; color: var(--primary-brand); margin-bottom: 10px;"></i>
+                <h3 style="font-size: 2.5rem; margin: 10px 0;" id="uniqueUsersCount">0</h3>
+                <p style="color: var(--text-muted);">المستخدمون النشطون</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <i class="fas fa-clock" style="font-size: 2rem; color: var(--primary-glow); margin-bottom: 10px;"></i>
+                <h3 style="font-size: 2.5rem; margin: 10px 0;" id="recentLogsCount">0</h3>
+                <p style="color: var(--text-muted);">آخر ساعة</p>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="card" style="margin-bottom: 20px;">
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 15px; align-items: end;">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label">
+                        <i class="fas fa-search"></i> البحث في السجلات
+                    </label>
+                    <input 
+                        type="text" 
+                        id="auditSearch" 
+                        class="form-control" 
+                        placeholder="ابحث في الإجراءات، التفاصيل، أو المستخدمين..."
+                        oninput="applyFilters(); displayAuditLogs();"
+                    >
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label">
+                        <i class="fas fa-filter"></i> نوع الإجراء
+                    </label>
+                    <select 
+                        id="auditActionFilter" 
+                        class="form-control"
+                        onchange="applyFilters(); displayAuditLogs();"
+                    >
+                        <option value="all">جميع الإجراءات</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label class="form-label">
+                        <i class="fas fa-user"></i> المستخدم
+                    </label>
+                    <select 
+                        id="auditUserFilter" 
+                        class="form-control"
+                        onchange="applyFilters(); displayAuditLogs();"
+                    >
+                        <option value="all">جميع المستخدمين</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audit Table -->
         <div class="card">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>الإجراء</th>
-                        <th>التفاصيل</th>
-                        <th>المستخدم</th>
-                        <th>IP</th>
-                        <th>التوقيت</th>
-                    </tr>
-                </thead>
-                <tbody id="auditTableBody"></tbody>
-            </table>
+            <div style="overflow-x: auto;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;">الإجراء</th>
+                            <th style="width: 30%;">التفاصيل</th>
+                            <th style="width: 15%;">المستخدم</th>
+                            <th style="width: 15%;">IP Address</th>
+                            <th style="width: 25%;">التوقيت</th>
+                        </tr>
+                    </thead>
+                    <tbody id="auditTableBody">
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 40px; color: var(--text-muted);">
+                                <i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>
+                                جاري تحميل السجلات...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     </main>
