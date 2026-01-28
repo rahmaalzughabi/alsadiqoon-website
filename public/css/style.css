@@ -434,10 +434,34 @@ a:hover {
   border: 2px solid var(--primary-gold);
 }
 
+/* Button Improvements */
 .btn-secondary:hover {
   background: var(--primary-gold);
-  color: var(--primary-dark);
+  color: #000;
+  /* Force black text for contrast */
   transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+.btn-danger {
+  background: transparent;
+  color: #ff4d4d;
+  border: 1px solid #ff4d4d;
+  padding: 5px 12px;
+  font-size: 0.9rem;
+}
+
+.btn-danger:hover {
+  background: #ff4d4d;
+  color: white;
+  box-shadow: 0 0 10px rgba(255, 77, 77, 0.3);
+}
+
+.btn-action {
+  padding: 5px 10px;
+  margin: 0 2px;
+  font-size: 0.85rem;
+  border-radius: 4px;
 }
 
 /* ===================================
@@ -554,7 +578,22 @@ a:hover {
   color: var(--text-muted);
   font-size: 0.9rem;
   padding-top: var(--spacing-sm);
-  border-top: 1px solid rgba(80, 200, 120, 0.1);
+  border-top: 1px solid rgba(0, 123, 255, 0.15);
+  /* More visible divider */
+}
+
+/* Link visibility improvement */
+.btn-link {
+  color: var(--primary-azure);
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-link:hover {
+  color: var(--primary-gold);
+  text-decoration: underline;
 }
 
 /* ===================================
@@ -594,7 +633,7 @@ a:hover {
 }
 
 .footer-links a:hover {
-  color: var(--accent-emerald);
+  color: var(--primary-azure);
   padding-right: var(--spacing-xs);
 }
 

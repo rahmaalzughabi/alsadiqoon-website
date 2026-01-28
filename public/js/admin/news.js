@@ -10,8 +10,8 @@ async function loadNews() {
                 <td><span class="status-badge status-warning">${item.category}</span></td>
                 <td>${new Date(item.published_date).toLocaleDateString('ar-IQ')}</td>
                 <td>
-                    <button onclick="editNews(${item.id})" class="btn btn-secondary btn-sm"><i class="fas fa-edit"></i></button>
-                    <button onclick="deleteNews(${item.id})" class="btn btn-secondary btn-sm" style="color: red;"><i class="fas fa-trash"></i></button>
+                    <button onclick="editNews(${item.id})" class="btn btn-primary btn-action" title="تعديل"><i class="fas fa-edit"></i> تعديل</button>
+                    <button onclick="deleteNews(${item.id})" class="btn btn-danger btn-action" title="حذف"><i class="fas fa-trash"></i> حذف</button>
                 </td>
             </tr>
         `).join('');

@@ -12,7 +12,7 @@ async function loadActivities() {
                 <td>${new Date(item.date).toLocaleDateString('ar-IQ')}</td>
                 <td>${item.location || '-'}</td>
                 <td>
-                    <button onclick="deleteActivity(${item.id})" class="btn btn-secondary btn-sm" style="color: red;"><i class="fas fa-trash"></i></button>
+                    <button onclick="deleteActivity(${item.id})" class="btn btn-danger btn-action" title="حذف"><i class="fas fa-trash"></i> حذف</button>
                 </td>
             </tr>
         `).join('');

@@ -10,7 +10,7 @@ async function loadWhatsAppPosts() {
                 <td>${item.image ? `<a href="${item.image}" target="_blank"><img src="${item.image}" style="width:30px; height:30px; border-radius:4px; object-fit:cover;"></a>` : '-'}</td>
                 <td>${new Date(item.created_at).toLocaleDateString('ar-IQ')} ${new Date(item.created_at).toLocaleTimeString('ar-IQ')}</td>
                 <td>
-                    <button onclick="deleteWhatsAppPost('${item.id}')" class="btn btn-secondary btn-sm" style="color: red;"><i class="fas fa-trash"></i></button>
+                    <button onclick="deleteWhatsAppPost('${item.id}')" class="btn btn-danger btn-action" title="حذف"><i class="fas fa-trash"></i> حذف</button>
                 </td>
             </tr>
         `).join('');
