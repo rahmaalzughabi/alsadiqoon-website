@@ -92,61 +92,7 @@ router.delete('/:id', authenticateToken, (req, res) => {
     });
 });
 
-// Sync with WhatsApp (Protected)
-router.post('/sync/whatsapp', authenticateToken, async (req, res) => {
-    try {
-        // In a real implementation, this would connect to WhatsApp Business API
-        // or scraping service. For now, we simulate fetching recent news.
+// WhatsApp Sync endpoint removed per user request
 
-        const mockNews = [
-            {
-                title: 'الصادقون: الحكومة ماضية في تنفيذ برنامجها الوزاري',
-                content: 'أكدت كتلة الصادقون النيابية، اليوم الخميس، أن الحكومة الحالية ماضية في تنفيذ برنامجها الوزاري...',
-                category: 'اخبار الصادقون',
-                source: 'whatsapp',
-                image: '/images/news-placeholder.jpg',
-                date: new Date().toISOString()
-            },
-            {
-                title: 'نائب عن الصادقون يدعو لمنح المحافظات صلاحيات أوسع',
-                content: 'دعا النائب عن كتلة الصادقون النيابية، إلى منح المحافظات صلاحيات أوسع...',
-                category: 'بيانات',
-                source: 'whatsapp',
-                image: '/images/news-placeholder.jpg',
-                date: new Date(Date.now() - 86400000).toISOString()
-            }
-        ];
-
-        let addedCount = 0;
-
-        for (const item of mockNews) {
-            // Check if title exists to avoid duplicates
-            const exists = await new Promise((resolve) => {
-                db.get('SELECT id FROM news WHERE title = ?', [item.title], (err, row) => {
-                    resolve(!!row);
-                });
-            });
-
-            if (!exists) {
-                await new Promise((resolve, reject) => {
-                    db.run(
-                        'INSERT INTO news (title, content, image, category, source, published_date) VALUES (?, ?, ?, ?, ?, ?)',
-                        [item.title, item.content, item.image, item.category, item.source, item.date],
-                        function (err) {
-                            if (err) reject(err);
-                            else resolve();
-                        }
-                    );
-                });
-                addedCount++;
-            }
-        }
-
-        res.json({ success: true, message: `تمت مزامنة ${addedCount} خبر جديد من واتساب`, count: addedCount });
-    } catch (error) {
-        console.error('WhatsApp Sync Error:', error);
-        res.status(500).json({ error: 'Failed to sync with WhatsApp' });
-    }
-});
 
 module.exports = router;

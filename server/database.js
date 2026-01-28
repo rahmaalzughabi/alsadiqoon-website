@@ -106,31 +106,7 @@ db.serialize(() => {
     `, [section.name, section.slug, `محتوى قسم ${section.name}`, section.order]);
   });
 
-  // Insert sample news
-  const sampleNews = [
-    {
-      title: 'الجمالي: الصادقون تمتلك ثقلاً جماهيرياً راسخاً في بابل',
-      content: 'أكد عضو كتلة الصادقون النيابية النائب حسن الجمالي أن الحركة تمتلك ثقلاً جماهيرياً راسخاً في محافظة بابل...',
-      category: 'اخبار الصادقون'
-    },
-    {
-      title: 'الشيحاني: حصر السلاح بيد الدولة خيار شجاع',
-      content: 'أشاد المتحدث الرسمي باسم حركة الصادقون محمد الشيحاني بقرار حصر السلاح بيد الدولة...',
-      category: 'بيانات'
-    },
-    {
-      title: 'البلداوي: الحدود العراقية أمانة وطنية مصانة',
-      content: 'أكد النائب عن كتلة الصادقون النيابية حسين البلداوي أن الحدود العراقية أمانة وطنية...',
-      category: 'تصاريح'
-    }
-  ];
-
-  sampleNews.forEach(news => {
-    db.run(`
-      INSERT INTO news (title, content, category)
-      VALUES (?, ?, ?)
-    `, [news.title, news.content, news.category]);
-  });
+  // Sample news insertion removed as per user request to start clean.
 });
 
 console.log('Database initialized successfully at:', dbPath);
